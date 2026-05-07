@@ -1,13 +1,26 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/layout";
-import Dashboard from "./pages/Dashboard/dashboard";
+import Login from "./pages/Usuarios/Login";
+import Cadastro from "./pages/Usuarios/Register";
+import Paciente from "./pages/Paciente/ListPatientPage";
+import Dashboard from "./pages/Dashboard";
+import Terapeuta from "./pages/Terapeuta/ListTherapistPage";
+import CreatePatientPage from "./pages/Paciente/CreatePatientPage";
 
 function App() {
 
   return (
-    <Layout>
-      <Dashboard />
-    </Layout>
-  )
+ <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Cadastro />} />
+        <Route path="/dashboard" element={<Layout><Dashboard /></Layout>}/>
+        <Route path="/pacientes" element={<Layout><Paciente /></Layout>}/>
+        <Route path="/pacientes/create" element={<Layout><CreatePatientPage /></Layout> }/>
+        <Route path="/terapeutas" element={<Layout><Terapeuta /></Layout>}/>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App
