@@ -1,5 +1,5 @@
 .sidebar {
-  width: 250px;
+  width: 270px;
   height: 100vh;
   background: #0D0E22;
   color: #fff;
@@ -62,4 +62,18 @@
 .logout:hover{
   background: #5843D3;
   color: #fff;
+}
+.searchContainer {
+  padding: 0rem;
+  margin-bottom: 5rem;
+}
+.searchContainer div {
+  margin-bottom: 0; 
+}
+.searchContainer input {
+  width: 100%;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
 }

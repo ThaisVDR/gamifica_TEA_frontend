@@ -19,3 +19,23 @@
 .inputContainer input:focus {
   border-color: #7a5bfd;
 }
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.icon {
+  position: absolute;
+  left: 12px; 
+  display: flex;
+  align-items: center;
+  color: #ccc;
+  pointer-events: none; 
+}
+
+.inputWithIcon {
+ padding-left: 40px !important;
+}
+

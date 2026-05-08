@@ -112,7 +112,6 @@ export default function CriarPacientes() {
           </div>
         </div>
 
-        {/* BOTÃO FINAL */}
         <div className={styles.modal_footer}>
           <button className={styles.submit_btn}>
             Adicionar paciente
