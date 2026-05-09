@@ -10,6 +10,7 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   icon?: ReactNode;
+  imagePreviewUrl?: string;
 }
 
 function Input({
@@ -25,7 +26,7 @@ function Input({
   return (
     <div className={style.inputContainer}>
       <label htmlFor={name}>{label}</label>
-     <div className={style.inputWrapper}>
+      <div className={style.inputWrapper}>
         {icon && <span className={style.icon}>{icon}</span>}
         <input
           id={name}

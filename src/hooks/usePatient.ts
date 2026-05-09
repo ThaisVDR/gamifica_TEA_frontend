@@ -1,20 +1,43 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import type { Patient } from "../types/patient";
+import api from "../services/api";
 
-export function usePatients(initialPatients: Patient[], itemsPerPage: number = 5) {
+export function usePatients(itemsPerPage: number = 5) {
+  const [patients, setPatients] = useState<Patient[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
-  // Evita cálculos desnecessários a cada render
+  useEffect(() => {
+    async function fetchPatients() {
+      try {
+        const response = await api.get("/Paciente/listar");
+        const data = response.data.map((p: any) => ({
+          id: String(p.pacienteId),
+          name: p.nomeCompleto,
+          tasksCompleted: "0/0",
+          averageScore: 0,
+          photoUrl: "",
+        }));
+        setPatients(data);
+      } catch (err) {
+        console.error("Erro ao buscar pacientes:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPatients();
+  }, []);
+
   const filteredPatients = useMemo(() => {
-    return initialPatients.filter((p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    return patients.filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
-  }, [searchTerm, initialPatients]);
+  }, [searchTerm, patients]);
 
-  // Paginação
   const totalPages = Math.ceil(filteredPatients.length / itemsPerPage);
-  
+
   const currentItems = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
     return filteredPatients.slice(start, start + itemsPerPage);
@@ -22,7 +45,7 @@ export function usePatients(initialPatients: Patient[], itemsPerPage: number = 5
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
-    setCurrentPage(1); // Volta para a página 1 ao pesquisar
+    setCurrentPage(1);
   };
 
   return {
@@ -32,5 +55,6 @@ export function usePatients(initialPatients: Patient[], itemsPerPage: number = 5
     setCurrentPage,
     totalPages,
     currentItems,
+    loading,
   };
 }
